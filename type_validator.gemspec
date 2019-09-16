@@ -5,7 +5,7 @@ require 'type_validator/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'type_validator'
-  spec.version       = TypeValidator::VERSION
+  spec.version       = TYPE_VALIDATOR_VERSION
   spec.authors       = ['Rodrigo Serradura']
   spec.email         = ['rodrigo.serradura@gmail.com']
 
@@ -35,6 +35,8 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
+
+  spec.add_runtime_dependency 'activemodel', '>= 3.2'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake', '~> 10.0'
