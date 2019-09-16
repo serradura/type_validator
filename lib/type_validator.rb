@@ -24,7 +24,7 @@ class TypeValidator < ActiveModel::EachValidator
     if options[:strict]
       raise TypeError, "#{attribute} #{message}"
     else
-      record.errors.add attribute, message
+      record.errors.add(attribute, message)
     end
   end
 end
