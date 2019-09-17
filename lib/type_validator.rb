@@ -3,14 +3,10 @@
 require 'active_model'
 
 class TypeValidator < ActiveModel::EachValidator
-  INVALID_DEFINITION = ArgumentError.new(
-    'invalid type definition. Options to define one: `:is_a` or `:kind_of`'
-  )
-
   def validate_each(record, attribute, value)
     strategy = fetch_strategy(options)
 
-    raise INVALID_DEFINITION unless strategy
+    raise Error::InvalidDefinition.new(attribute) unless strategy
 
     return unless error = strategy.invalid?(record, attribute, value, options)
 
@@ -24,5 +20,6 @@ class TypeValidator < ActiveModel::EachValidator
   end
 end
 
+require 'type_validator/error'
 require 'type_validator/kind_of'
 require 'type_validator/version'

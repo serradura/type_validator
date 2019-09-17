@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TypeValidatorExceptionsTest < Minitest::Test
-  class InvalidValidationDefinition
+  class InvalidValidation
     include ActiveModel::Validations
 
     attr_reader :name
@@ -9,7 +9,7 @@ class TypeValidatorExceptionsTest < Minitest::Test
     validates :name, type: {}
   end
 
-  class InvalidValidationDefinitionWithNil
+  class InvalidValidationWithNil
     include ActiveModel::Validations
 
     attr_reader :name
@@ -17,7 +17,7 @@ class TypeValidatorExceptionsTest < Minitest::Test
     validates :name, type: { name: nil }
   end
 
-  class InvalidValidationDefinitionWithAnEmptyArray
+  class InvalidValidationWithAnEmptyArray
     include ActiveModel::Validations
 
     attr_reader :name
@@ -25,21 +25,25 @@ class TypeValidatorExceptionsTest < Minitest::Test
     validates :name, type: { name: [] }
   end
 
-  def test_the_exception_raised_because_of_the_wrong_definition
-    expected_message = 'invalid type definition. Options to define one: `:is_a` or `:kind_of`'
+  def assert_invalid_definition(&block)
+    assert_raises(TypeValidator::Error::InvalidDefinition, &block)
+  end
 
-    err1 = assert_raises(ArgumentError) do
-      InvalidValidationDefinition.new.valid?
+  def test_the_exception_raised_because_of_the_wrong_definition
+    expected_message = 'invalid type definition for :name attribute. Options to define one: `:is_a` or `:kind_of`'
+
+    err1 = assert_invalid_definition do
+      InvalidValidation.new.valid?
     end
     assert_equal(expected_message, err1.message)
 
-    err2 = assert_raises(ArgumentError) do
-      InvalidValidationDefinitionWithNil.new.valid?
+    err2 = assert_invalid_definition do
+      InvalidValidationWithNil.new.valid?
     end
     assert_equal(expected_message, err2.message)
 
-    err3 = assert_raises(ArgumentError) do
-      InvalidValidationDefinitionWithAnEmptyArray.new.valid?
+    err3 = assert_invalid_definition do
+      InvalidValidationWithAnEmptyArray.new.valid?
     end
     assert_equal(expected_message, err3.message)
   end
