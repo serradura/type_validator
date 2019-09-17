@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Rodrigo Serradura']
   spec.email         = ['rodrigo.serradura@gmail.com']
 
-  spec.summary       = %q{Adds type validation for ActiveModel.}
-  spec.description   = %q{Adds type validation for ActiveModel.}
+  spec.summary       = %q{Adds type validation for classes with ActiveModel::Validations.}
+  spec.description   = %q{Adds type validation for classes with ActiveModel::Validations.}
   spec.homepage      = 'https://github.com/serradura/type_validator'
   spec.license       = 'MIT'
 
