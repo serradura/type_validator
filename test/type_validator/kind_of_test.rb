@@ -70,7 +70,7 @@ class TypeValidatorKindOfTest < Minitest::Test
 
     attr_reader :title
 
-    validates! :title, type: { kind_of: String }
+    validates! :title, type: { kind_of: String }, allow_nil: true
 
     def initialize(title:)
       @title = title
@@ -78,9 +78,10 @@ class TypeValidatorKindOfTest < Minitest::Test
   end
 
   def test_strict_validations
+    assert_predicate(Task.new(title: nil), :valid?)
     assert_predicate(Task.new(title: 'Buy milk'), :valid?)
 
-    err = assert_raises(TypeError) { Task.new(title: nil).valid? }
+    err = assert_raises(TypeError) { Task.new(title: 42).valid? }
     assert_equal('title must be a kind of: String', err.message)
   end
 end

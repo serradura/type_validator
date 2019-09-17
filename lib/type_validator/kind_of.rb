@@ -1,11 +1,10 @@
-
 # frozen_string_literal: true
 
 require 'active_model'
 
 class TypeValidator
   class KindOf
-    def self.invalid?(record, attribute, value, options)
+    def self.invalid?(value, options)
       types = Array(options[:is_a] || options[:kind_of])
       allow_nil = options[:allow_nil]
 
