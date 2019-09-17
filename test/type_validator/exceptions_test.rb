@@ -30,7 +30,7 @@ class TypeValidatorExceptionsTest < Minitest::Test
   end
 
   def test_the_exception_raised_because_of_the_wrong_definition
-    expected_message = 'invalid type definition for :name attribute. Options to define one: `:is_a` or `:kind_of`'
+    expected_message = 'invalid type definition for :name attribute. Options to define one: `:is_a`/`:kind_of` or :respond_to'
 
     err1 = assert_invalid_definition do
       InvalidValidation.new.valid?

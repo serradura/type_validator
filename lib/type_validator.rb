@@ -16,10 +16,12 @@ class TypeValidator < ActiveModel::EachValidator
   end
 
   def fetch_strategy(options)
-    KindOf if options.key?(:is_a) || options.key?(:kind_of)
+    return KindOf if options.key?(:is_a) || options.key?(:kind_of)
+    RespondTo if options.key?(:respond_to)
   end
 end
 
 require 'type_validator/error'
 require 'type_validator/kind_of'
+require 'type_validator/respond_to'
 require 'type_validator/version'
