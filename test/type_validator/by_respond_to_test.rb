@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TypeValidatorRespondToTest < Minitest::Test
+class TypeValidatorByRespondToTest < Minitest::Test
   class Person
     include ActiveModel::Validations
 

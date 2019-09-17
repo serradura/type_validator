@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class TypeValidatorKindOfTest < Minitest::Test
+class TypeValidatorByIsATest < Minitest::Test
   class Person
     include ActiveModel::Validations
 
     attr_reader :name, :age
 
-    validates :name, type: { kind_of: String }
-    validates :age, type: { kind_of: Integer }
+    validates :name, type: { is_a: String }
+    validates :age, type: { is_a: Integer }
 
     def initialize(name:, age:)
       @name, @age = name, age
@@ -33,8 +33,8 @@ class TypeValidatorKindOfTest < Minitest::Test
 
     attr_reader :id, :status
 
-    validates :id, type: { kind_of: Integer }, allow_nil: true
-    validates :status, type: { kind_of: [String, Symbol] }
+    validates :id, type: { is_a: Integer }, allow_nil: true
+    validates :status, type: { is_a: [String, Symbol] }
 
     def initialize(status:, id: nil)
       @status, @id = status, id
@@ -70,7 +70,7 @@ class TypeValidatorKindOfTest < Minitest::Test
 
     attr_reader :title
 
-    validates! :title, type: { kind_of: String }, allow_nil: true
+    validates! :title, type: { is_a: String }, allow_nil: true
 
     def initialize(title:)
       @title = title

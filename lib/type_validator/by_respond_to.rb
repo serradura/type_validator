@@ -3,10 +3,9 @@
 require 'active_model'
 
 class TypeValidator
-  class RespondTo
+  class ByRespondTo
     def self.invalid?(value, options)
-      method_name = options[:respond_to]
-      allow_nil = options[:allow_nil]
+      method_name, allow_nil = options[:respond_to], options[:allow_nil]
 
       return if (allow_nil && value.nil?) || value.respond_to?(method_name)
 
