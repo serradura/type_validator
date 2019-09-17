@@ -2,29 +2,27 @@
 
 require 'active_model'
 
-require 'type_validator/version'
-
 class TypeValidator < ActiveModel::EachValidator
-  VERSION = TYPE_VALIDATOR_VERSION
-
   INVALID_DEFINITION = ArgumentError.new(
     'invalid type definition. Options to define one: `:is_a` or `:kind_of`'
   )
 
   def validate_each(record, attribute, value)
-    types = Array(options[:is_a] || options[:kind_of]).flatten
-    allow_nil = options[:allow_nil]
+    strategy = fetch_strategy(options)
 
-    raise INVALID_DEFINITION if types.empty?
+    raise INVALID_DEFINITION unless strategy
 
-    return if (allow_nil && value.nil?) || types.any? { |type| value.is_a?(type) }
+    return unless error = strategy.invalid?(record, attribute, value, options)
 
-    message = "must be a kind of: #{types.map(&:name).join(', ')}"
+    raise TypeError, "#{attribute} #{error}" if options[:strict]
 
-    if options[:strict]
-      raise TypeError, "#{attribute} #{message}"
-    else
-      record.errors.add(attribute, message)
-    end
+    record.errors.add(attribute, error)
+  end
+
+  def fetch_strategy(options)
+    KindOf if options.key?(:is_a) || options.key?(:kind_of)
   end
 end
+
+require 'type_validator/kind_of'
+require 'type_validator/version'
