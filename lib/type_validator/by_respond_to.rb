@@ -3,7 +3,7 @@
 require 'active_model'
 
 class TypeValidator
-  class ByRespondTo
+  module ByRespondTo
     def self.invalid?(value, options)
       method_name = options[:respond_to]
 

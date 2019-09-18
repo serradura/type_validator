@@ -3,7 +3,7 @@
 require 'active_model'
 
 class TypeValidator
-  class ByKlass
+  module ByKlass
     def self.invalid?(value, options)
       klass = options[:klass]
 

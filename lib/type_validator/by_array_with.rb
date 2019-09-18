@@ -3,7 +3,7 @@
 require 'active_model'
 
 class TypeValidator
-  class ByArrayWith
+  module ByArrayWith
     def self.invalid?(value, options)
       expected = options[:array_with]
 

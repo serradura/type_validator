@@ -3,7 +3,7 @@
 require 'active_model'
 
 class TypeValidator
-  class ByKindOf
+  module ByKindOf
     def self.invalid?(value, options)
       types = Array(options[:is_a] || options[:kind_of])
 

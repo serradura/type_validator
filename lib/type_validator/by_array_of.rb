@@ -3,7 +3,7 @@
 require 'active_model'
 
 class TypeValidator
-  class ByArrayOf
+  module ByArrayOf
     def self.invalid?(value, options)
       types = Array(options[:array_of])
 
