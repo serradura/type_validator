@@ -24,5 +24,7 @@ group :test do
   gem 'simplecov', require: false
 end
 
+gem 'coveralls', require: false
+
 # Specify your gem's dependencies in type_validator.gemspec
 gemspec
