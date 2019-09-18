@@ -16,7 +16,7 @@ class TypeValidatorByKlassTest < Minitest::Test
     end
   end
 
-  def test_the_respond_to_validation
+  def test_the_klass_validation
     invalid_person = Person.new(handler: Hash)
 
     refute_predicate(invalid_person, :valid?)
