@@ -8,6 +8,7 @@ class TypeValidator < ActiveModel::EachValidator
 
     raise Error::InvalidDefinition.new(attribute) unless strategy
 
+    return if options[:allow_nil] && value.nil?
     return unless error = strategy.invalid?(value, options)
 
     raise TypeError, "#{attribute} #{error}" if options[:strict]

@@ -5,12 +5,12 @@ require 'active_model'
 class TypeValidator
   class ByKlass
     def self.invalid?(value, options)
-      klass, allow_nil = options[:klass], options[:allow_nil]
+      klass = options[:klass]
 
       require_a_class(value)
       require_a_class(klass)
 
-      return if (allow_nil && value.nil?) || (value == klass || value < klass)
+      return if value == klass || value < klass
 
       "must be the or a subclass of `#{klass.name}`"
     end

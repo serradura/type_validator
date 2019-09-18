@@ -6,9 +6,8 @@ class TypeValidator
   class ByKindOf
     def self.invalid?(value, options)
       types = Array(options[:is_a] || options[:kind_of])
-      allow_nil = options[:allow_nil]
 
-      return if (allow_nil && value.nil?) || types.any? { |type| value.is_a?(type) }
+      return if types.any? { |type| value.is_a?(type) }
 
       "must be a kind of: #{types.map { |klass| klass.name }.join(', ')}"
     end
