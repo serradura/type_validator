@@ -20,6 +20,7 @@ class TypeValidator < ActiveModel::EachValidator
     return ByRespondTo if options.key?(:respond_to)
     return ByKlass if options.key?(:klass)
     return ByArrayOf if options.key?(:array_of)
+    return ByArrayWith if options.key?(:array_with)
   end
 end
 
@@ -28,4 +29,5 @@ require 'type_validator/error'
 require 'type_validator/by_klass'
 require 'type_validator/by_kind_of'
 require 'type_validator/by_array_of'
+require 'type_validator/by_array_with'
 require 'type_validator/by_respond_to'
