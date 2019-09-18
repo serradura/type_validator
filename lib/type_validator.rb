@@ -19,6 +19,7 @@ class TypeValidator < ActiveModel::EachValidator
     return ByKindOf if options.key?(:is_a) || options.key?(:kind_of)
     return ByRespondTo if options.key?(:respond_to)
     return ByKlass if options.key?(:klass)
+    return ByArrayOf if options.key?(:array_of)
   end
 end
 
@@ -26,4 +27,5 @@ require 'type_validator/version'
 require 'type_validator/error'
 require 'type_validator/by_klass'
 require 'type_validator/by_kind_of'
+require 'type_validator/by_array_of'
 require 'type_validator/by_respond_to'
