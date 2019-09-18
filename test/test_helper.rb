@@ -16,7 +16,3 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'type_validator'
 
 require 'minitest/autorun'
-
-require 'active_model/naming'
-require 'active_model/translation'
-require 'active_model/validations'
