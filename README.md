@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/serradura/type_validator.svg?branch=master)](https://travis-ci.com/serradura/type_validator)
+[![Coverage Status](https://coveralls.io/repos/github/serradura/type_validator/badge.svg?branch=master)](https://coveralls.io/github/serradura/type_validator?branch=master)
 
 # TypeValidator
 
