@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'type_validator'
   spec.version       = File.readlines(File.join('.', 'lib', 'type_validator', 'version.rb'))
                            .find { |line| line =~ /VERSION/ }
-                           .strip[/(\d\.?){3}/]
+                           .strip[/(\d\d?\.?){3}/]
   spec.authors       = ['Rodrigo Serradura']
   spec.email         = ['rodrigo.serradura@gmail.com']
 
