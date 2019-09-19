@@ -25,17 +25,33 @@ Or install it yourself as:
 
 Use one or all of the type validations into your models/classes:
 
+**[Object#instance_of?](https://ruby-doc.org/core-2.6.4/Object.html#method-i-instance_of-3F)**
+
+```ruby
+validates :name, type: { instance_of: String }
+
+# or use an array to verify if the attribute
+# is an instance of one of the classes
+
+validates :name, type: { instance_of: [String, Symbol] }
+```
+
+**[Object#kind_of?](https://ruby-doc.org/core-2.6.4/Object.html#method-i-kind_of-3F)**
+
 ```ruby
 validates :name, type: { is_a: String }
 # or
 validates :name, type: { kind_of: String }
 
-# Use an array to verify if the attribute is an instance of one of the classes
+# Use an array to verify if the attribute
+# is an instance of one of the classes
 
 validates :status, type: { is_a: [String, Symbol]}
 # or
 validates :status, type: { kind_of: [String, Symbol]}
 ```
+
+**[Object#respond_to?](https://ruby-doc.org/core-2.6.4/Object.html#method-i-respond_to-3F)**
 
 ```ruby
 validates :handler, type: { respond_to: :call }
@@ -50,13 +66,15 @@ validates :handler, type: { klass: Handler }
 ```ruby
 validates :account_types, type: { array_of: String }
 
-# or use an array to verify if the attribute is an instance of one of the classes
+# or use an array to verify if the attribute
+# is an instance of one of the classes
 
 validates :account_types, type: { array_of: [String, Symbol] }
 ```
 
 ```ruby
-# Verifies if the attribute value is an array with some or all the expected values.
+# Verifies if the attribute value
+# is an array with some or all the expected values.
 
 validates :account_types, type: { array_with: ['foo', 'bar'] }
 ```
