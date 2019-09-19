@@ -5,6 +5,9 @@
 
 Adds type validation for classes with [`ActiveModel::Validations >= 3.2`](https://api.rubyonrails.org/classes/ActiveModel/Validations.html).
 
+## Required Ruby version
+> \>= 2.2.0
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -57,11 +60,15 @@ validates :status, type: { kind_of: [String, Symbol]}
 validates :handler, type: { respond_to: :call }
 ```
 
+**Class == Class || Class < Class**
+
 ```ruby
 # Verifies if the attribute value is the class or a subclass.
 
 validates :handler, type: { klass: Handler }
 ```
+
+**Array.new.all? { |item| item.is_a?(Class) }**
 
 ```ruby
 validates :account_types, type: { array_of: String }
@@ -72,6 +79,8 @@ validates :account_types, type: { array_of: String }
 validates :account_types, type: { array_of: [String, Symbol] }
 ```
 
+**Array.new.all? { |item| expected_values.include?(item) }**
+
 ```ruby
 # Verifies if the attribute value
 # is an array with some or all the expected values.
@@ -79,7 +88,8 @@ validates :account_types, type: { array_of: [String, Symbol] }
 validates :account_types, type: { array_with: ['foo', 'bar'] }
 ```
 
-**All the validations above accept:**
+### All the validations above accept:
+
 - `allow_nil` option. e.g:. e.g:
     ```ruby
     validates :name, type: { is_a: String }, allow_nil: true
