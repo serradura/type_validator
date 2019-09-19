@@ -52,15 +52,6 @@ class TypeValidator < ActiveModel::EachValidator
       "must be the or a subclass of `#{klass.name}`"
     end
 
-    def validate_klass(value, klass)
-      require_a_class(value)
-      require_a_class(klass)
-
-      return if value == klass || value < klass
-
-      "must be the or a subclass of `#{klass.name}`"
-    end
-
     def require_a_class(arg)
       raise ArgumentError, "#{arg} must be a class" unless arg.is_a?(Class)
     end
