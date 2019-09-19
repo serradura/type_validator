@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class TypeValidatorByIsATest < Minitest::Test
+class TypeValidatorByInstanceOfTest < Minitest::Test
   class Person
     include ActiveModel::Validations
 
     attr_reader :name, :age
 
-    validates :name, type: { is_a: String }
-    validates :age, type: { is_a: Integer }
+    validates :name, type: { instance_of: String }
+    validates :age, type: { instance_of: Float }
 
     def initialize(name:, age:)
       @name, @age = name, age
@@ -15,23 +15,25 @@ class TypeValidatorByIsATest < Minitest::Test
   end
 
   def test_the_validation_with_a_single_type
-    invalid_person = Person.new(name: 21, age: 'John')
+    invalid_person = Person.new(name: 21.0, age: 'John')
 
     refute_predicate(invalid_person, :valid?)
-    assert_equal(['must be a kind of: String'], invalid_person.errors[:name])
-    assert_equal(['must be a kind of: Integer'], invalid_person.errors[:age])
+    assert_equal(['must be an instance of: String'], invalid_person.errors[:name])
+    assert_equal(['must be an instance of: Float'], invalid_person.errors[:age])
 
-    person = Person.new(name: 'John', age: 21)
+    person = Person.new(name: 'John', age: 21.0)
 
     assert_predicate(person, :valid?)
   end
 
   class MyString < String; end
 
-  def test_that_will_be_valid_when_checks_a_subclass
+  def test_that_will_be_invalid_when_checks_a_subclass
     person = Person.new(name: MyString.new('John'), age: 21)
 
-    assert_predicate(person, :valid?)
+    refute_predicate(person, :valid?)
+
+    assert_equal(['must be an instance of: String'], person.errors[:name])
   end
 
   # ---
@@ -41,8 +43,8 @@ class TypeValidatorByIsATest < Minitest::Test
 
     attr_reader :id, :status
 
-    validates :id, type: { is_a: Integer }, allow_nil: true
-    validates :status, type: { is_a: [String, Symbol] }
+    validates :id, type: { instance_of: Float }, allow_nil: true
+    validates :status, type: { instance_of: [String, Symbol] }
 
     def initialize(status:, id: nil)
       @status, @id = status, id
@@ -50,15 +52,15 @@ class TypeValidatorByIsATest < Minitest::Test
   end
 
   def test_the_validation_with_multiple_types
-    job1 = Job.new(id: 1, status: 'sleeping')
-    job2 = Job.new(id: 2, status: :sleeping)
-    job3 = Job.new(id: 3, status: 0)
+    job1 = Job.new(id: 1.0, status: 'sleeping')
+    job2 = Job.new(id: 2.0, status: :sleeping)
+    job3 = Job.new(id: 3.0, status: 0)
 
     assert_predicate(job1, :valid?)
     assert_predicate(job2, :valid?)
 
     refute_predicate(job3, :valid?)
-    assert_equal(['must be a kind of: String, Symbol'], job3.errors[:status])
+    assert_equal(['must be an instance of: String, Symbol'], job3.errors[:status])
   end
 
   def test_the_allow_nil_validation_options
@@ -68,7 +70,7 @@ class TypeValidatorByIsATest < Minitest::Test
     assert_predicate(job1, :valid?)
 
     refute_predicate(job2, :valid?)
-    assert_equal(['must be a kind of: Integer'], job2.errors[:id])
+    assert_equal(['must be an instance of: Float'], job2.errors[:id])
   end
 
   # ---
@@ -78,7 +80,7 @@ class TypeValidatorByIsATest < Minitest::Test
 
     attr_reader :title
 
-    validates! :title, type: { is_a: String }, allow_nil: true
+    validates! :title, type: { instance_of: String }, allow_nil: true
 
     def initialize(title:)
       @title = title
@@ -90,6 +92,6 @@ class TypeValidatorByIsATest < Minitest::Test
     assert_predicate(Task.new(title: 'Buy milk'), :valid?)
 
     err = assert_raises(TypeError) { Task.new(title: 42).valid? }
-    assert_equal('title must be a kind of: String', err.message)
+    assert_equal('title must be an instance of: String', err.message)
   end
 end

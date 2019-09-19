@@ -26,6 +26,14 @@ class TypeValidatorByKindOfTest < Minitest::Test
     assert_predicate(person, :valid?)
   end
 
+  class MyString < String; end
+
+  def test_that_will_be_valid_when_checks_a_subclass
+    person = Person.new(name: MyString.new('John'), age: 21)
+
+    assert_predicate(person, :valid?)
+  end
+
   # ---
 
   class Job
