@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'active_model'
-
 class TypeValidator
   module Error
     class InvalidDefinition < ArgumentError
@@ -9,6 +7,19 @@ class TypeValidator
 
       def initialize(attribute)
         super "invalid type definition for :#{attribute} attribute. #{OPTIONS}"
+      end
+
+      private_constant :OPTIONS
+    end
+
+    class InvalidDefaultValidation < ArgumentError
+      OPTIONS =
+        TypeValidator::DEFAULT_VALIDATION_OPTIONS
+          .map { |option| ":#{option}" }
+          .join(', ')
+
+      def initialize(option)
+        super "#{option.inspect} is an invalid option. Please use one of these: #{OPTIONS}"
       end
 
       private_constant :OPTIONS

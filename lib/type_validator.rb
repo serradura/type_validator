@@ -16,9 +16,13 @@ class TypeValidator < ActiveModel::EachValidator
   private
 
     def validate_type_of(attribute, value)
+      if expected = options[:with] || options[:in]
+        return send("validate_#{self.class.default_validation}", value, expected)
+      end
+
       if expected = options[:instance_of]; return validate_instance_of(value, expected); end
-      if expected = options[:is_a]       ; return validate_kind_of(value, expected)    ; end
       if expected = options[:kind_of]    ; return validate_kind_of(value, expected)    ; end
+      if expected = options[:is_a]       ; return validate_is_a(value, expected)       ; end
       if expected = options[:klass]      ; return validate_klass(value, expected)      ; end
       if expected = options[:respond_to] ; return validate_respond_to(value, expected) ; end
       if expected = options[:array_of]   ; return validate_array_of(value, expected)   ; end
@@ -42,6 +46,7 @@ class TypeValidator < ActiveModel::EachValidator
 
       "must be a kind of: #{types.map { |klass| klass.name }.join(', ')}"
     end
+    alias_method :validate_is_a, :validate_kind_of
 
     def validate_klass(value, klass)
       require_a_class(value)
@@ -80,4 +85,5 @@ class TypeValidator < ActiveModel::EachValidator
 end
 
 require 'type_validator/version'
+require 'type_validator/default_validation'
 require 'type_validator/error'
