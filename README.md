@@ -7,6 +7,17 @@
 
 Adds type validation for classes with [`ActiveModel::Validations >= 3.2`](https://api.rubyonrails.org/classes/ActiveModel/Validations.html).
 
+- [TypeValidator](#typevalidator)
+  - [Required Ruby version](#required-ruby-version)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Default validation](#default-validation)
+    - [`allow_nil` option and `strict` mode](#allownil-option-and-strict-mode)
+  - [Development](#development)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Code of Conduct](#code-of-conduct)
+
 ## Required Ruby version
 > \>= 2.2.0
 
@@ -28,7 +39,7 @@ Or install it yourself as:
 
 ## Usage
 
-Use one or all of the type validations into your models/classes:
+Use any of the type validations below into your models/classes:
 
 **[Object#instance_of?](https://ruby-doc.org/core-2.6.4/Object.html#method-i-instance_of-3F)**
 
@@ -90,18 +101,45 @@ validates :account_types, type: { array_of: [String, Symbol] }
 validates :account_types, type: { array_with: ['foo', 'bar'] }
 ```
 
-### All the validations above accept:
+### Default validation
 
-- `allow_nil` option. e.g:. e.g:
-    ```ruby
-    validates :name, type: { is_a: String }, allow_nil: true
-    ```
-- `strict: true` option or the usage of `validates!`method. e.g:
-    ```ruby
-    validates :name, type: { is_a: String }, strict: true
-    #or
-    validates! :name, type: { is_a: String }
-    ```
+By default, you can define the attribute type directly (without a hash). e.g.
+
+```ruby
+validates :name, type: String
+# or
+validates :name, type: [String, Symbol]
+```
+
+To changes this behavior you can set another strategy to validates the attributes types:
+
+```ruby
+TypeValidator.default_validation = :instance_of
+
+# Tip: Create an initializer if you are in a Rails application.
+```
+
+And these are the available options to define the default validation:
+-  `kind_of` *(default)*
+-  `is_a`
+-  `instance_of`
+
+### `allow_nil` option and `strict` mode
+
+You can use the `allow_nil` option with any of the type validations. e.g.
+
+```ruby
+validates :name, type: { is_a: String }, allow_nil: true
+```
+
+And any of the validations work with the`strict: true` option
+or with the `validates!` method. e.g.
+
+```ruby
+validates :name, type: { is_a: String }, strict: true
+#or
+validates! :name, type: { is_a: String }
+```
 
 ## Development
 
