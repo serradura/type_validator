@@ -1,4 +1,6 @@
+[![Gem](https://img.shields.io/gem/v/type_validator.svg?style=flat-square)](https://rubygems.org/gems/type_validator)
 [![Build Status](https://travis-ci.com/serradura/type_validator.svg?branch=master)](https://travis-ci.com/serradura/type_validator)
+[![Maintainability](https://api.codeclimate.com/v1/badges/cf8b233beedae37b82dd/maintainability)](https://codeclimate.com/github/serradura/type_validator/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/serradura/type_validator/badge.svg?branch=master)](https://coveralls.io/github/serradura/type_validator?branch=master)
 
 # TypeValidator
