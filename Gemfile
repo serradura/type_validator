@@ -24,9 +24,5 @@ group :test do
   gem 'simplecov', require: false
 end
 
-if RUBY_VERSION >= '2.6.0' && activemodel_version >= '6.0'
-  gem 'coveralls', require: false
-end
-
 # Specify your gem's dependencies in type_validator.gemspec
 gemspec

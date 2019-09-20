@@ -1,10 +1,5 @@
 require 'simplecov'
 
-if RUBY_VERSION >= '2.6.0' && ENV.fetch('ACTIVEMODEL_VERSION', '6.0') >= '6.0'
-  require 'coveralls'
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-end
-
 SimpleCov.start do
   add_filter "/test/"
 end
