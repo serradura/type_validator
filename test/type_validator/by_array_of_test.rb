@@ -99,4 +99,36 @@ class TypeValidatorByArrayOfTest < Minitest::Test
       assert_equal('statuses must be an array of: String', err.message)
     end
   end
+
+  # ---
+
+  class Car
+    include ActiveModel::Validations
+
+    attr_reader :problems
+
+    validates :problems, type: { array_of: String }, allow_blank: true
+
+    def initialize(problems:)
+      @problems = problems
+    end
+  end
+
+  def test_the_validation_allow_blank_invalid
+    car = Car.new(problems: 'battery')
+
+    refute_predicate(car, :valid?)
+  end
+
+  def test_the_validation_allow_blank
+    car = Car.new(problems: ['battery'])
+
+    assert_predicate(car, :valid?)
+  end
+
+  def test_the_allow_blank_validation_options
+    person = Car.new(problems: [])
+
+    assert_predicate(person, :valid?)
+  end
 end

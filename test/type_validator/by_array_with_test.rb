@@ -84,4 +84,38 @@ class TypeValidatorByArrayWithTest < Minitest::Test
     err = assert_raises(ArgumentError) { Foo.new(values: [1]).valid? }
     assert_equal('42 must be an array', err.message)
   end
+
+  # ---
+
+  class Car
+    include ActiveModel::Validations
+
+    attr_reader :problems
+
+    validates :problems,
+      type: { array_with: ['battery', 'engine'] },
+      allow_blank: true
+
+    def initialize(problems:)
+      @problems = problems
+    end
+  end
+
+  def test_the_validation_allow_blank_invalid
+    car = Car.new(problems: 'battery')
+
+    refute_predicate(car, :valid?)
+  end
+
+  def test_the_validation_allow_blank
+    car = Car.new(problems: ['battery'])
+
+    assert_predicate(car, :valid?)
+  end
+
+  def test_the_allow_blank_validation_options
+    person = Car.new(problems: [])
+
+    assert_predicate(person, :valid?)
+  end
 end
