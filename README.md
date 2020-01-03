@@ -1,3 +1,4 @@
+![Ruby](https://img.shields.io/badge/ruby-2.2+-ruby.svg?colorA=99004d&colorB=cc0066)
 [![Gem](https://img.shields.io/gem/v/type_validator.svg?style=flat-square)](https://rubygems.org/gems/type_validator)
 [![Build Status](https://travis-ci.com/serradura/type_validator.svg?branch=master)](https://travis-ci.com/serradura/type_validator)
 [![Maintainability](https://api.codeclimate.com/v1/badges/cf8b233beedae37b82dd/maintainability)](https://codeclimate.com/github/serradura/type_validator/maintainability)
@@ -12,7 +13,7 @@ Adds type validation for classes with [`ActiveModel::Validations >= 3.2`](https:
   - [Installation](#installation)
   - [Usage](#usage)
     - [Default validation](#default-validation)
-    - [`allow_nil` option and `strict` mode](#allownil-option-and-strict-mode)
+    - [allow_nil option and strict mode](#allow_nil-option-and-strict-mode)
   - [Development](#development)
   - [Contributing](#contributing)
   - [License](#license)
