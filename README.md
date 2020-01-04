@@ -4,20 +4,20 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/cf8b233beedae37b82dd/maintainability)](https://codeclimate.com/github/serradura/type_validator/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/cf8b233beedae37b82dd/test_coverage)](https://codeclimate.com/github/serradura/type_validator/test_coverage)
 
-# TypeValidator
+# TypeValidator <!-- omit in toc -->
 
 Adds type validation for classes with [`ActiveModel::Validations >= 3.2`](https://api.rubyonrails.org/classes/ActiveModel/Validations.html).
 
-- [TypeValidator](#typevalidator)
-  - [Required Ruby version](#required-ruby-version)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Default validation](#default-validation)
-    - [allow_nil option and strict mode](#allow_nil-option-and-strict-mode)
-  - [Development](#development)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Code of Conduct](#code-of-conduct)
+## Table of Contents <!-- omit in toc -->
+- [Required Ruby version](#required-ruby-version)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Default validation](#default-validation)
+  - [allow_nil option and strict mode](#allow_nil-option-and-strict-mode)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+- [Code of Conduct](#code-of-conduct)
 
 ## Required Ruby version
 > \>= 2.2.0
