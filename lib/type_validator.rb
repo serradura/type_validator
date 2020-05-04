@@ -20,6 +20,8 @@ class TypeValidator < ActiveModel::EachValidator
         return send("validate_#{self.class.default_validation}", value, expected)
       end
 
+      return if (options[:array_of] || options[:array_with]) && options[:allow_empty] && value.is_a?(Array) && value.size == 0
+
       if expected = options[:instance_of]; return validate_instance_of(value, expected); end
       if expected = options[:kind_of]    ; return validate_kind_of(value, expected)    ; end
       if expected = options[:is_a]       ; return validate_is_a(value, expected)       ; end
